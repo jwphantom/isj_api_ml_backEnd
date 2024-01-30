@@ -16,6 +16,7 @@ from app.utils.utils import (
     recognitionBanane,
     regBase64,
     make_prediction_mri,
+    recognitionIRM,
 )
 
 from keras.models import load_model
@@ -84,7 +85,25 @@ async def analyse_image_base64(image_data: SchemaImage):
 @router.post("/analyse-mri")
 async def analyse_mri_base64(image_data: SchemaImage):
     try:
+        # verificatiion si on a reçu un lien base64 valide
+        valideBase64 = regBase64(image_data.base64)
+
+        if not valideBase64:
+            return {"base_64": "Lien Base64 incorrect"}
+
+        image = base64_to_image(image_data.base64)
+
+        # verifcation si c'est une plante qu'on a uploader
+        found_irm = recognitionIRM(
+            "ml/irm/irm_recognition.h5", "ml/irm/labels.txt", image
+        )
+
+        if not found_irm:
+            return {"found_irm": False}
+
         analyse = make_prediction_mri(image_data.base64, "ml/brain-scan.h5")
+
+        analyse["found_irm"] = True
 
         return analyse
 
