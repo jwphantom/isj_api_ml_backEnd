@@ -101,7 +101,10 @@ async def analyse_mri_base64(image_data: SchemaImage):
         if not found_irm:
             return {"found_irm": False}
 
-        analyse = make_prediction_mri(image_data.base64, "ml/brain-scan.h5")
+        analyse = make_prediction_mri(
+            "ml/brain-scan.h5",
+            image_data.base64,
+        )
 
         analyse["found_irm"] = True
 

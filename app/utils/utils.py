@@ -226,7 +226,7 @@ def save_and_display_gradcam(img, heatmap, alpha=0.4):
 
 # Fonction qui écode les prédictions du modèle en noms de classes lisibles.
 def decode_predictions(preds):
-    classes = ["Glioma", "meningioma", "No Tumor", "Pituitary"]
+    classes = ["Glioma", "Meningioma", "No Tumor", "Pituitary"]
 
     prediction = preds
     index = np.argmax(prediction)
@@ -246,8 +246,8 @@ prédiction avec le modèle, crée une heatmap avec Grad-CAM, et sauvegarde/affi
 
 
 def make_prediction_mri(
-    base64_str,
     model,
+    base64_str,
     last_conv_layer_name=last_conv_layer_name,
 ):
     model = load_model(model, compile=False)
