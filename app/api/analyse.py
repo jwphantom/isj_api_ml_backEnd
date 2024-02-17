@@ -110,41 +110,5 @@ async def analyse_mri_base64(image_data: SchemaImage):
 
         return analyse
 
-        # # verificatiion si on a reçu un lien base64 valide
-        # valideBase64 = regBase64(image_data.base64)
-
-        # if not valideBase64:
-        #     return {"base_64": "Lien Base64 incorrect"}
-
-        # # # verifcation si c'est une plante qu'on a uploader
-        # # found_plantain = recognitionBanane(image_data.base64)
-
-        # # if not found_plantain:
-        # #     return {"found_plantain": False}
-
-        # image = base64_to_image(image_data.base64)
-
-        # prediction = predict("ml/model.h5", "ml/labels.txt", image)
-
-        # date_analyse = datetime.now()
-
-        # db_analyse = ModelAnalyse(
-        #     img_base64=image_data.base64,
-        #     malade=prediction["malade"],
-        #     gravite=prediction["gravite"],
-        #     categorie=prediction["categorie"],
-        #     precision=str(prediction["precision"]),
-        #     time_created=date_analyse,
-        # )
-
-        # db.session.add(db_analyse)
-
-        # try:
-        #     db.session.commit()
-        # except Exception as e:
-        #     print(f"Une exception s'est produite : {str(e)}")
-
-        # return prediction
-
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
